@@ -33,6 +33,21 @@ class Tree {
 
     return node;
   }
+
+  includes(value) {
+    let currentNode = tree.root;
+    while (currentNode) {
+      if (currentNode.data === value) {
+        return true;
+      }
+      if (currentNode.data > value) {
+        currentNode = currentNode.left;
+      } else {
+        currentNode = currentNode.right;
+      }
+    }
+    return false;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -46,4 +61,8 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 const tree = new Tree([1, 2, 3, 4, 5, 6, 7]);
-prettyPrint(tree);
+console.log(tree.includes(10));
+console.log(tree.includes(1));
+console.log(tree.includes(4));
+console.log(tree.includes(3));
+prettyPrint(tree.root);
