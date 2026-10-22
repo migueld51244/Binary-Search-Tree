@@ -35,7 +35,7 @@ class Tree {
   }
 
   includes(value) {
-    let currentNode = tree.root;
+    let currentNode = this.root;
     while (currentNode) {
       if (currentNode.data === value) {
         return true;
@@ -47,6 +47,32 @@ class Tree {
       }
     }
     return false;
+  }
+
+  insert(value) {
+    let currentNode = this.root;
+    let prevNode;
+    if (!currentNode) {
+      this.root = new Node(value);
+      return;
+    }
+    while (currentNode) {
+      if (currentNode.data === value) {
+        return;
+      }
+      if (currentNode.data > value) {
+        prevNode = currentNode;
+        currentNode = currentNode.left;
+      } else {
+        prevNode = currentNode;
+        currentNode = currentNode.right;
+      }
+    }
+    if (prevNode.data > value) {
+      prevNode.left = new Node(value);
+    } else {
+      prevNode.right = new Node(value);
+    }
   }
 }
 
