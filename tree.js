@@ -110,6 +110,20 @@ class Tree {
       }
       return;
     }
+    // One child
+    // Handle root with one leaf
+    if (this.root === currentNode) {
+      this.root = currentNode.left ?? currentNode.right;
+      return;
+    }
+
+    if (currentNode.right !== null && currentNode.left === null) {
+      prevNode.left = currentNode.right;
+      return;
+    } else if (currentNode.right === null && currentNode.left !== null) {
+      prevNode.right = currentNode.left;
+      return;
+    }
   }
 }
 
@@ -124,5 +138,8 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 const tree = new Tree([1, 2, 3, 4, 5, 6, 7]);
+tree.deleteItem(1);
+tree.deleteItem(2);
+tree.deleteItem(7);
 tree.deleteItem(6);
 prettyPrint(tree.root);
