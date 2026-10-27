@@ -192,6 +192,13 @@ class Tree {
     this.postOrderForEach(callback, root.right);
     callback(root.data);
   }
+
+  height(root = this.root) {
+    if (!root) return -1;
+    const leftSubtreeHeight = this.height(root.left);
+    const rightSubtreeHeight = this.height(root.right);
+    return Math.max(leftSubtreeHeight, rightSubtreeHeight) + 1;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -206,4 +213,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 const tree = new Tree([1, 2, 3, 4, 5, 6, 7]);
 prettyPrint(tree.root);
-tree.preOrderForEach(console.log);
+console.log(tree.height());
