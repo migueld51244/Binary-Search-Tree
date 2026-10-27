@@ -147,6 +147,22 @@ class Tree {
       return;
     }
   }
+
+  levelOrderForEach(callback) {
+    if (!this.root) return;
+    const queue = [];
+    queue.push(this.root);
+    while (queue.length !== 0) {
+      const current = queue.shift();
+      callback(current);
+      if (current.left !== null) {
+        queue.push(current.left);
+      }
+      if (current.right !== null) {
+        queue.push(current.right);
+      }
+    }
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -160,6 +176,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 const tree = new Tree([1, 2, 3, 4, 5, 6, 7]);
-tree.insert(5.5);
-console.log(tree.deleteItem(4));
 prettyPrint(tree.root);
+console.log(tree.levelOrderForEach((console.log)));
