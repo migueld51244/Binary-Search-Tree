@@ -149,7 +149,8 @@ class Tree {
   }
 
   levelOrderForEach(callback) {
-    if (!callback) throw new Error("Missing callback!");
+    if (!callback || typeof callback !== "function")
+      throw new Error("Missing callback!");
     if (!this.root) return;
     const queue = [];
     queue.push(this.root);
@@ -163,6 +164,11 @@ class Tree {
         queue.push(current.right);
       }
     }
+  }
+
+  inOrderForEach(callback) {
+    if (!callback) throw new Error("Missing callback!");
+    if (!this.root) return;
   }
 }
 
