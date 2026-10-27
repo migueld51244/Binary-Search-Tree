@@ -149,6 +149,7 @@ class Tree {
   }
 
   levelOrderForEach(callback) {
+    if (!callback) throw new Error("Missing callback!");
     if (!this.root) return;
     const queue = [];
     queue.push(this.root);
@@ -177,4 +178,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 const tree = new Tree([1, 2, 3, 4, 5, 6, 7]);
 prettyPrint(tree.root);
-console.log(tree.levelOrderForEach((console.log)));
+console.log(tree.levelOrderForEach(console.log));
