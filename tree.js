@@ -193,10 +193,34 @@ class Tree {
     callback(root.data);
   }
 
-  height(root = this.root) {
+  height(value) {
+    // Find node
+    const getNode = (value) => {
+      let currentNode = this.root;
+      while (currentNode) {
+        if (currentNode.data === value) {
+          return currentNode;
+        }
+        if (currentNode.data > value) {
+          currentNode = currentNode.left;
+        } else {
+          currentNode = currentNode.right;
+        }
+      }
+      return null;
+    };
+
+    const isPresent = getNode(value);
+    if (!isPresent) return undefined;
+
+    // Calculate height of the node
+    return this.#computeHeight(isPresent);
+  }
+
+  #computeHeight(root = this.root) {
     if (!root) return -1;
-    const leftSubtreeHeight = this.height(root.left);
-    const rightSubtreeHeight = this.height(root.right);
+    const leftSubtreeHeight = this.#computeHeight(root.left);
+    const rightSubtreeHeight = this.#computeHeight(root.right);
     return Math.max(leftSubtreeHeight, rightSubtreeHeight) + 1;
   }
 }
@@ -213,4 +237,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 const tree = new Tree([1, 2, 3, 4, 5, 6, 7]);
 prettyPrint(tree.root);
-console.log(tree.height());
+console.log(tree.height(2));
