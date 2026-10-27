@@ -167,7 +167,8 @@ class Tree {
   }
 
   inOrderForEach(callback, root = this.root) {
-    if (!callback) throw new Error("Missing callback!");
+    if (!callback || typeof callback !== "function")
+      throw new Error("Missing callback!");
     if (!root) return;
     this.inOrderForEach(callback, root.left);
     callback(root.data);
@@ -175,7 +176,8 @@ class Tree {
   }
 
   preOrderForEach(callback, root = this.root) {
-    if (!callback) throw new Error("Missing callback!");
+    if (!callback || typeof callback !== "function")
+      throw new Error("Missing callback!");
     if (!root) return;
     callback(root.data);
     this.preOrderForEach(callback, root.left);
@@ -183,7 +185,8 @@ class Tree {
   }
 
   postOrderForEach(callback, root = this.root) {
-    if (!callback) throw new Error("Missing callback!");
+    if (!callback || typeof callback !== "function")
+      throw new Error("Missing callback!");
     if (!root) return;
     this.postOrderForEach(callback, root.left);
     this.postOrderForEach(callback, root.right);
