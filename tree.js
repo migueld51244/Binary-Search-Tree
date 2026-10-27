@@ -156,7 +156,7 @@ class Tree {
     queue.push(this.root);
     while (queue.length !== 0) {
       const current = queue.shift();
-      callback(current);
+      callback(current.data);
       if (current.left !== null) {
         queue.push(current.left);
       }
@@ -167,6 +167,19 @@ class Tree {
   }
 
   inOrderForEach(callback) {
+    if (!callback) throw new Error("Missing callback!");
+    if (!this.root) return;
+  }
+
+  preOrderForEach(callback, root = this.root) {
+    if (!callback) throw new Error("Missing callback!");
+    if (!root) return;
+    callback(root.data);
+    this.preOrderForEach(callback, root.left);
+    this.preOrderForEach(callback, root.right);
+  }
+
+  postOrderForEach(callback) {
     if (!callback) throw new Error("Missing callback!");
     if (!this.root) return;
   }
@@ -184,4 +197,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 const tree = new Tree([1, 2, 3, 4, 5, 6, 7]);
 prettyPrint(tree.root);
-console.log(tree.levelOrderForEach(console.log));
+tree.preOrderForEach(console.log);
