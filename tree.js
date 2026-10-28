@@ -263,6 +263,14 @@ class Tree {
 
     return this.#checkBalance(root.left) && this.#checkBalance(root.right);
   }
+
+  rebalance() {
+    const source = [];
+    // Get numbers
+    this.inOrderForEach((value) => source.push(value));
+    this.array = this.normalize(source);
+    this.root = this.buildTree(this.array);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -277,4 +285,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 const tree = new Tree([1, 2, 3, 4, 5, 6, 7]);
 prettyPrint(tree.root);
-console.log(tree.height(2));
+console.log(tree.rebalance());
