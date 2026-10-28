@@ -249,6 +249,20 @@ class Tree {
     const rightSubtreeHeight = this.#computeHeight(root.right);
     return Math.max(leftSubtreeHeight, rightSubtreeHeight) + 1;
   }
+
+  isBalanced() {
+    return this.#checkBalance();
+  }
+
+  #checkBalance(root = this.root) {
+    if (!root) return true;
+    const lHeight = this.#computeHeight(root.left);
+    const rHeight = this.#computeHeight(root.right);
+
+    if (Math.abs(lHeight - rHeight) > 1) return false;
+
+    return this.#checkBalance(root.left) && this.#checkBalance(root.right);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
