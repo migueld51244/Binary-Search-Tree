@@ -217,6 +217,32 @@ class Tree {
     return this.#computeHeight(isPresent);
   }
 
+  depth(value) {
+    let depth = 0;
+    // Find node
+    const getNode = (value) => {
+      let currentNode = this.root;
+      while (currentNode) {
+        if (currentNode.data === value) {
+          return currentNode;
+        }
+        if (currentNode.data > value) {
+          currentNode = currentNode.left;
+          depth++;
+        } else {
+          currentNode = currentNode.right;
+          depth++;
+        }
+      }
+      return null;
+    };
+
+    const isPresent = getNode(value);
+    if (!isPresent) return undefined;
+
+    return depth;
+  }
+
   #computeHeight(root = this.root) {
     if (!root) return -1;
     const leftSubtreeHeight = this.#computeHeight(root.left);
